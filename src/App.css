@@ -1,0 +1,83 @@
+*{
+	font-family: sans-serif;
+	padding: 0;
+	margin: 0;
+}
+
+.header{
+	position: relative;
+	height: 50px;
+	background-color: #eeeeee;
+	border-bottom: 1px solid lightgrey;
+}
+
+.proj-title{
+	display: inline-block;
+	color: black;
+	line-height: 50px;
+	margin-left: 10px;
+}
+
+.header-buttons{
+	position: absolute;
+	box-sizing: border-box;
+	top: 0;
+	right: 0;
+	height: 100%;
+}
+
+.header-buttons > button{
+	background-color: transparent;
+	position: relative;
+	display: inline-block;
+	text-decoration: none;
+	font-weight: bold;
+	height: 50px;
+	line-height: 50px;
+	padding: 0 10px;
+	border: none;
+	font-size: 15px;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+.header-buttons > button > a{
+	text-decoration: underline;
+	display: inline-block;
+	color: inherit;
+}
+
+.form > .field{
+	display: block;
+	box-sizing: border-box;
+	border: none;
+	margin-bottom: 5px;
+	font-size: 20px;
+}
+
+.btn{
+	cursor: pointer;
+	color: white;
+	border: none;
+	background-color: black;
+	font-size: 15px;
+}
+
+#submit-btn{
+	padding: 10px;
+	margin: 10px 0;
+}
+
+.container-2{
+	background-color: #eeeeee;
+	padding: 10px;
+}
+
+.page-title{
+	margin-bottom: 10px;
+}
+
+#footer{
+	color: rgb(100,100,100);
+	margin: 10px;
+}
