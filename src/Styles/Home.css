@@ -1,6 +1,7 @@
 .search-bar{
 	position: relative;
 	height: 40px;
+	background-color: black;
 }
 
 .search-input{
@@ -45,23 +46,4 @@
 .link-title > a{
 	text-decoration: none;
 	color: black;
-}
-
-.create-bar{
-	text-align: center;
-	border-top: 1px solid lightgrey;
-	position: fixed;
-	height: 50px;
-	width: 100%;
-	background-color: #eeeeee;
-	bottom: 0;
-}
-
-.create-btn{
-	background-color: black;
-	display: inline-block;
-	height: 40px;
-	width: 40px;
-	margin: 5px;
-	border-radius: 100%;
 }

@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
+const API_URL = require('../config').API_URL;
+
 export default class Login extends React.Component{
 
 	constructor(props){
@@ -22,7 +24,7 @@ export default class Login extends React.Component{
 		e.preventDefault();
 		axios
 			.create({ withCredentials: true })
-			.post(`http://localhost:3001/login`, {
+			.post(`${API_URL}/login`, {
 				username: this.state.username,
 				password: this.state.password
 			})

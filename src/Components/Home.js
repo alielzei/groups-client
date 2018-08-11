@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 
 import '../Styles/Home.css';
 
+import config from '../config';
+const API_URL = config.API_URL;
+
 class Home extends React.Component {
 
 	constructor(props){
@@ -26,7 +29,7 @@ class Home extends React.Component {
 	}
 
 	initialLoad(){
-		axios.get(`http://localhost:3001/links`)
+		axios.get(`${API_URL}/links`)
     	.then(res => {
     		if(this.mounted){ this.setState({ links: res.data }) }
     	})
@@ -38,7 +41,7 @@ class Home extends React.Component {
 	submitSearch = (e) => {
 		e.preventDefault();
 		axios
-			.get(`http://localhost:3001/search`, {
+			.get(`http://wagroups.herokuapp.com/search`, {
 				params: {
 					input: this.state.searchInput
 				}
@@ -78,12 +81,6 @@ class Home extends React.Component {
 						)
 					}
 				</ul>
-
-				{this.props.loggedIn &&
-					<div className="create-bar">
-						<Link className="create-btn" to="/create"></Link>
-					</div>
-				}
 
 			</div>
 		);

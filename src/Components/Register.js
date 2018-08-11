@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
+const API_URL = require('../config').API_URL;
+
 export default class Register extends React.Component{
 
 	constructor(props){
@@ -21,7 +23,7 @@ export default class Register extends React.Component{
 	submit = (e) => {
 		e.preventDefault();	
 		axios
-			.post(`http://localhost:3001/signup`, {
+			.post(`${API_URL}/signup`, {
 				username: this.state.username, 
 				password: this.state.password
 			})

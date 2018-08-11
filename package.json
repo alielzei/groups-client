@@ -11,7 +11,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build; surge /Users/Ali/Desktop/groups/client/build/ wagroups.surge.sh",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }

@@ -1,13 +1,16 @@
 import React from 'react';
 import axios from 'axios';
 
+const API_URL = require('../config').API_URL;
+
 class Create extends React.Component{
 
 	constructor(props){
 		super(props);
 		this.state = {
 			title: '',
-			link: ''
+			link: '',
+			error: null
 		}
 	}
 	componentDidMount(){
@@ -20,7 +23,7 @@ class Create extends React.Component{
 		e.preventDefault();
 		axios
 			.create({ withCredentials: true, })
-			.post(`http://localhost:3001/add`, {
+			.post(`${API_URL}/add`, {
 				title: this.state.title,
 				link: this.state.link
 			})
@@ -28,7 +31,7 @@ class Create extends React.Component{
     		this.props.history.push('/');
     	})
     	.catch(error => {
-	      console.log(error)
+	      this.setState({error: error.response.data['msg']})
 	    })
 	};
 
@@ -54,6 +57,11 @@ class Create extends React.Component{
 
 					<input className="btn" id="submit-btn" type="submit" value="add" />
 				</form>
+
+				{this.state.error &&
+					<p>{this.state.error}</p>
+				}
+
 			</div>
 		);
 	};

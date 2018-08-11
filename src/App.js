@@ -2,11 +2,14 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import axios from 'axios';
 
-import Home from './Components/Home';
-import Login from './Components/Login';
+import Home from 		 './Components/Home';
+import Login from 	 './Components/Login';
 import Register from './Components/Register';
-import Create from './Components/Create';
-import Group from './Components/Group';
+import Create from 	 './Components/Create';
+import Group from 	 './Components/Group';
+
+import config from './config';
+const API_URL = config.API_URL;
 
 export default class App extends React.Component {
 
@@ -21,7 +24,7 @@ export default class App extends React.Component {
 	componentWillMount(){
 		axios
 			.create({ withCredentials: true })
-			.get('http://localhost:3001/loadUser')
+			.get(`${API_URL}/loadUser`)
 			.then(res => {
 				if(res.data.loggedIn === true){
 					this.setState({
@@ -37,7 +40,7 @@ export default class App extends React.Component {
 	logoutUser = () => {
 		axios
 			.create({ withCredentials: true })
-			.get(`http://localhost:3001/logout`)
+			.get(`${API_URL}/logout`)
     	.then(res => {
     		this.setState({
 					userLoggedIn: false
@@ -59,6 +62,7 @@ export default class App extends React.Component {
 						{this.state.userLoggedIn
 							?
 							<div className="header-buttons">
+								<button><Link to="/create">create</Link></button>
 								<button><a onClick={this.logoutUser}>logout</a></button>
 							</div> 
 							:
@@ -105,7 +109,7 @@ export default class App extends React.Component {
 								{...props}
 								loggedIn={this.state.userLoggedIn}/> } 
 						/>
-
+					
 					</div>
 				</div>
 			</Router>
