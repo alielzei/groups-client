@@ -2,6 +2,12 @@
 	font-family: sans-serif;
 	padding: 0;
 	margin: 0;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+}
+
+input{
+	border-radius: 0;
 }
 
 .container-0{

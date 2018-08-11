@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
-const API_URL = require('../config').API_URL;
+import config from '../config';
+const API_URL = config.API_URL;
 
 export default class Login extends React.Component{
 

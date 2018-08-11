@@ -25,25 +25,44 @@
 	border-radius: 0;
 }
 
-.links{
+.groups{
 	list-style-type: none;
 }
 
-.link{
+.group{
+	height: 70px;
 	text-decoration: none;
 	color: black;
-	padding: 10px;
 	display: block;
 	background-color: #eeeeee;
 	border-bottom: 1px solid lightgrey;
 }
 
-
-.link-title:hover{
-	cursor: pointer;
+.group-img-container{
+	display: inline-block;
+	width: 70px;
+	height: 70px;
+	float: left;
+	border-radius: 100%;
+	overflow: hidden;
+	transform: scale(0.8);
 }
 
-.link-title > a{
+.group-img-container > img{
+	height: 100%;
+	width: auto;
+}
+
+.group-id{
+	display: block;
+	font-size: 30px;
 	text-decoration: none;
 	color: black;
+	font-weight: bold;
+	height: 70px;
+	line-height: 70px;
+}
+
+.group-id:hover{
+	background-color: rgba(0,0,0,0.1);
 }

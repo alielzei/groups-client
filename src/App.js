@@ -8,6 +8,8 @@ import Register from './Components/Register';
 import Create from 	 './Components/Create';
 import Group from 	 './Components/Group';
 
+import './App.css';
+
 import config from './config';
 const API_URL = config.API_URL;
 

@@ -15,7 +15,7 @@ class Home extends React.Component {
 		this.state = {
 			searchInput: '',
 			resultTitle: 'test',
-			links: []
+			groups: []
 		};
 	};
 
@@ -31,7 +31,7 @@ class Home extends React.Component {
 	initialLoad(){
 		axios.get(`${API_URL}/links`)
     	.then(res => {
-    		if(this.mounted){ this.setState({ links: res.data }) }
+    		if(this.mounted){ this.setState({ groups: res.data }) }
     	})
     	.catch(error => {
 	      console.log(error)
@@ -41,14 +41,14 @@ class Home extends React.Component {
 	submitSearch = (e) => {
 		e.preventDefault();
 		axios
-			.get(`http://wagroups.herokuapp.com/search`, {
+			.get(`${API_URL}/search`, {
 				params: {
 					input: this.state.searchInput
 				}
 			})
 	    .then(res => {
 	     	this.setState({
-	     		links: res.data
+	     		groups: res.data
 	     	});
 	    })
 	    .catch(error => {
@@ -71,12 +71,18 @@ class Home extends React.Component {
 					
 				</form>
 
-				<ul className="links">
+				<ul className="groups">
 					{
-						this.state.links.map(link =>
-							<li className="link" to={`/link/${link.id}`} key={link.id}>
-									<h3 className="link-title">{link.title}</h3>
-									<a href={link.link} >{link.link}</a>
+						this.state.groups.map(group =>
+							<li className="group" key={group.id}>
+									<div className="group-img-container">
+										<img src={`http://chat.whatsapp.com/invite/icon/${group.group_id}`} />
+									</div>
+									<a
+										className="group-id" 
+										href={`http://chat.whatsapp.com/${group.group_id}`}>
+										{group.title}
+									</a>
 							</li>
 						)
 					}
