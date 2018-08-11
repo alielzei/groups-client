@@ -76,7 +76,9 @@ class Home extends React.Component {
 						this.state.groups.map(group =>
 							<li className="group" key={group.id}>
 									<div className="group-img-container">
-										<img src={`http://chat.whatsapp.com/invite/icon/${group.group_id}`} />
+										<img 
+											src={`http://chat.whatsapp.com/invite/icon/${group.group_id}`} 
+											onerror=/>
 									</div>
 									<a
 										className="group-id" 

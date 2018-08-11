@@ -59,7 +59,7 @@ export default class App extends React.Component {
 				<div className="container-0">
 					<div className="header">
 						<Link to="/">
-							<h1 className="proj-title">untitled</h1>
+							<h1 className="proj-title">wagroups</h1>
 						</Link>
 						{this.state.userLoggedIn
 							?
