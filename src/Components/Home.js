@@ -14,7 +14,7 @@ class Home extends React.Component {
 		this.mounted = false;
 		this.state = {
 			searchInput: '',
-			resultTitle: 'test',
+			resultTitle: 'shared groups:',
 			groups: []
 		};
 	};
@@ -40,25 +40,33 @@ class Home extends React.Component {
 
 	submitSearch = (e) => {
 		e.preventDefault();
-		axios
-			.get(`${API_URL}/search`, {
-				params: {
-					input: this.state.searchInput
-				}
-			})
-	    .then(res => {
-	     	this.setState({
-	     		groups: res.data
-	     	});
-	    })
-	    .catch(error => {
-	      console.log(error)
-	    })
+		if(this.state.searchInput != ''){
+			this.setState({
+				resultTitle: `search result for "${this.state.searchInput}":`
+			});
+			axios
+				.get(`${API_URL}/search`, {
+					params: {
+						input: this.state.searchInput
+					}
+				})
+		    .then(res => {
+		     	this.setState({
+		     		groups: res.data
+		     	});
+		    })
+		    .catch(error => {
+		      console.log(error)
+		    })
+		}else{
+			this.setState({ resultTitle: 'shared groups:'})
+			this.initialLoad();
+		}
 	}
 
 	render(){
 		return(
-			<div style={{"padding": "0"}} className="container-2">
+			<div>
 
 				<form onSubmit={this.submitSearch} className="search-bar">
 
@@ -67,21 +75,21 @@ class Home extends React.Component {
 						value={this.state.searchInput} 
 						onChange={e => this.setState({ searchInput: e.target.value })} />
 
-					<input type="submit" className="btn search-btn" value="search" />
+					<input type="submit" className="btn search-btn" value="" />
 					
 				</form>
+
+				<h2 className="results-title">{this.state.resultTitle}</h2>
 
 				<ul className="groups">
 					{
 						this.state.groups.map(group =>
 							<li className="group" key={group.id}>
 									<div className="group-img-container">
-										<img 
-											src={`http://chat.whatsapp.com/invite/icon/${group.group_id}`} 
-											onerror=/>
+										<img src={`http://chat.whatsapp.com/invite/icon/${group.group_id}`} />
 									</div>
 									<a
-										className="group-id" 
+										className="group-title" 
 										href={`http://chat.whatsapp.com/${group.group_id}`}>
 										{group.title}
 									</a>

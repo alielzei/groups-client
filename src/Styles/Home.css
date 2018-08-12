@@ -1,68 +1,74 @@
 .search-bar{
 	position: relative;
 	height: 40px;
-	background-color: black;
+	background-color: #eeeeee;
+	padding: 0 10px 10px 10px;
 }
 
 .search-input{
 	background-color: white;
-	display: inline-block;
-	box-sizing: border-box;
 	border: none;
-	width: calc(100% - 100px);
+	width: calc(100% - 40px);
 	font-size: 20px;
-	padding: 10px;
 	height: 100%;
+	text-indent: 10px;
 }
 
 .search-btn{
-	position: absolute;
 	text-align: center;
-	top: 0;
-	right: 0;
+	float: right;
+	width: 40px;
 	height: 100%;
-	width: 100px;
-	border-radius: 0;
+}
+
+.results-title{
+	padding: 5px 10px;
 }
 
 .groups{
 	list-style-type: none;
+	margin: 0 10px;
 }
 
 .group{
-	height: 70px;
+	position: relative;
+	background-color: #eeeeee;
+	margin-bottom: 10px;
+	height: 50px;
+	line-height: 50px;
 	text-decoration: none;
 	color: black;
 	display: block;
-	background-color: #eeeeee;
 	border-bottom: 1px solid lightgrey;
+	padding: 5px;
+}
+
+.group:hover{
+	transition: 200ms;
+	height: 70px;
+	line-height: 70px;
+	background-color: rgba(0,0,0,0.15);
+}
+
+.group-title{
+	display: block;
+	font-size: 20px;
+	font-weight: 500;
+	text-decoration: none;
+	color: black;
+	height: 100%;
+	text-indent: 5px;
 }
 
 .group-img-container{
 	display: inline-block;
-	width: 70px;
-	height: 70px;
+	height: 100%;
 	float: left;
 	border-radius: 100%;
 	overflow: hidden;
-	transform: scale(0.8);
 }
 
 .group-img-container > img{
 	height: 100%;
 	width: auto;
-}
-
-.group-id{
-	display: block;
-	font-size: 30px;
-	text-decoration: none;
-	color: black;
-	font-weight: bold;
-	height: 70px;
-	line-height: 70px;
-}
-
-.group-id:hover{
-	background-color: rgba(0,0,0,0.1);
 }

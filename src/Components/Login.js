@@ -47,21 +47,21 @@ export default class Login extends React.Component{
 					<p>username</p>
 
 					<input 
+						placeholder="ali"
 						value={this.state.username} 
 						onChange={(e) => this.setState({ username: e.target.value })} 
-						className="field" 
-						name="username" />
+						className="field" />
 
 					<p>password</p>
 
 					<input 
+						placeholder="Keyboard_Catz12$"
 						value={this.state.password} 
 						onChange={(e) => this.setState({ password: e.target.value })} 
 						className="field" 
-						name="password" 
 						type="password" />
 
-					<input className="btn" id="submit-btn" type="submit" value="login" />
+					<input className="btn submit-btn" type="submit" value="login" />
 
 				</form>
 

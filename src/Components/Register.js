@@ -60,7 +60,7 @@ export default class Register extends React.Component{
 						name="password" 
 						type="password" />
 
-					<input className="btn" id="submit-btn" type="submit" value="signup" />
+					<input className="btn submit-btn" type="submit" value="signup" />
 
 				</form>
 

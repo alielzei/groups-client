@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { HashRouter as Router, Route, Link, NavLink } from 'react-router-dom';
 import axios from 'axios';
 
 import Home from 		 './Components/Home';
@@ -59,18 +59,20 @@ export default class App extends React.Component {
 				<div className="container-0">
 					<div className="header">
 						<Link to="/">
-							<h1 className="proj-title">wagroups</h1>
+							<div className="proj-logo">
+								<img src="./logo.svg" />
+							</div>
 						</Link>
 						{this.state.userLoggedIn
 							?
 							<div className="header-buttons">
-								<button><Link to="/create">create</Link></button>
 								<button><a onClick={this.logoutUser}>logout</a></button>
+								<button><NavLink to="/create">create</NavLink></button>
 							</div> 
 							:
 							<div className="header-buttons">
-		      			<button><Link to="/login">login</Link></button>
-								<button><Link to="/register">signup</Link></button>
+								<button><NavLink to="/register">signup</NavLink></button>
+		      			<button><NavLink to="/login">login</NavLink></button>
 							</div>
 						}
 					</div>

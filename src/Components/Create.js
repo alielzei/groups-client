@@ -39,24 +39,24 @@ class Create extends React.Component{
 	render(){
 		return ( 
 			<div className="container-2">
-				<h2 id="title" className="page-title"> create grp </h2>
+				<h2 id="title" className="page-title"> add your group </h2>
 				<form onSubmit={this.submit} id="create-form" className="form">
 
 					<p>title</p>
 
-					<input 
+					<input
+						placeholder="the name of your group"
 						className="field" 
-						name="title" 
 						onChange={e => this.setState({title: e.target.value})} />
 
 					<p>link</p>
 
-					<input 
+					<input
+						placeholder="https://chat.whatsapp.com/y0urgr0upId"
 						className="field" 
-						name="link" 
 						onChange={e => this.setState({link: e.target.value})} />
 
-					<input className="btn" id="submit-btn" type="submit" value="add" />
+					<input className="btn submit-btn" type="submit" value="add" />
 				</form>
 
 				{this.state.error &&
