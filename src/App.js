@@ -1,12 +1,11 @@
 import React from 'react';
-import { HashRouter as Router, Route, Link, NavLink } from 'react-router-dom';
+import { Switch, HashRouter as Router, Route, Link, NavLink } from 'react-router-dom';
 import axios from 'axios';
 
 import Home from 		 './Components/Home';
 import Login from 	 './Components/Login';
 import Register from './Components/Register';
 import Create from 	 './Components/Create';
-import Group from 	 './Components/Group';
 
 import './App.css';
 
@@ -15,109 +14,85 @@ const API_URL = config.API_URL;
 
 export default class App extends React.Component {
 
- 	constructor(props){
+	signal = axios.CancelToken.source();
+	state = { user: null };
 
-		super(props);
-		this.state = {
-			userLoggedIn: false
-		};
+	loadUser = () => {
+		this.setState({ user: null }, () => {
+			axios
+				.create({ withCredentials: true })
+				.get(`${API_URL}/loadUser`, {
+					cancelToken: this.signal.token
+				})
+				.then(res => {	
+					this.setState({ user: res.data })
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		});
 	};
 
 	componentWillMount(){
-		axios
-			.create({ withCredentials: true })
-			.get(`${API_URL}/loadUser`)
-			.then(res => {
-				if(res.data.loggedIn === true){
-					this.setState({
-						userLoggedIn: true
-					});
-				}
-			})
-			.catch(err => {
-				console.log(err);
-			})
+		this.loadUser();
 	};
 
-	logoutUser = () => {
+	componentWillUnmount(){ 
+		this.signal.cancel('api is getting cancelled');
+	};
+
+	logoutUser = () => { //this needs a service maybe
 		axios
 			.create({ withCredentials: true })
 			.get(`${API_URL}/logout`)
     	.then(res => {
-    		this.setState({
-					userLoggedIn: false
-				})
+    		this.loadUser();
     	})
     	.catch(error => {
-	      console.log(error)
-	    })
+	      console.log(error);
+	    });
 	};
 
 	render(){
+		//loading screen
+		if(this.state.user === null){
+			return <p>loading</p>
+		}
 		return (
-			<Router>
-				<div className="container-0">
-					<div className="header">
-						<Link to="/">
-							<div className="proj-logo">
-								<img src="./logo.svg" />
-							</div>
-						</Link>
-						{this.state.userLoggedIn
-							?
-							<div className="header-buttons">
-								<button><a onClick={this.logoutUser}>logout</a></button>
-								<button><NavLink to="/create">create</NavLink></button>
-							</div> 
-							:
-							<div className="header-buttons">
-								<button><NavLink to="/register">signup</NavLink></button>
-		      			<button><NavLink to="/login">login</NavLink></button>
-							</div>
-						}
+				<Router>
+					<div className="container-0">
+						<div className="header">
+							<Link to="/">
+								<div className="proj-logo">
+									<img alt="wagroups" src="./logo.svg" />
+								</div>
+							</Link>
+							{this.state.user.loggedIn
+								?
+								<div className="header-buttons">
+									<button><a onClick={this.logoutUser}>logout</a></button>
+									<button><NavLink to="/create">create</NavLink></button>
+								</div> 
+								:
+								<div className="header-buttons">
+									<button><NavLink to="/register">signup</NavLink></button>
+			      			<button><NavLink to="/login">login</NavLink></button>
+								</div>
+							}
+
+						</div>
+						<div className="container-1">
+							<Switch>
+								<Route exact path="/" component={Home} />
+								{ !this.state.user.loggedIn && <Route path="/login" component={props => <Login {...props} onLogin={this.loadUser} />} /> }
+								{ !this.state.user.loggedIn && <Route path="/register" component={Register} /> }
+								{  this.state.user.loggedIn && <Route path="/create" component={Create} /> }
+								<Route component={() => <p>No match</p> } />
+							</Switch>
+						</div>
 					</div>
-					<div className="container-1">
-
-						<Route 
-							exact path="/" 
-							component={ props => <Home
-								{...props}
-								loggedIn={this.state.userLoggedIn}/> }
-						/>
-
-						<Route 
-							path="/login" 
-							component={ props => <Login
-								{...props}
-								onLogin={() => this.setState({ userLoggedIn: true })}
-								loggedIn={this.state.userLoggedIn}/> }
-						/>
-
-						<Route
-							path="/register" 
-							component={ props => <Register
-								{...props}	
-								loggedIn={this.state.userLoggedIn}/> } 
-						/>
-
-						<Route 
-							path="/create" 
-							component={ props => <Create
-								{...props}
-								loggedIn={this.state.userLoggedIn}/> } 
-						/>
-
-						<Route 
-							path="/link/:id" 
-							component={ props => <Group
-								{...props}
-								loggedIn={this.state.userLoggedIn}/> } 
-						/>
-					
-					</div>
-				</div>
-			</Router>
-		)
+				</Router>
+			);
 	};
 
 }

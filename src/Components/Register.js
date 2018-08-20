@@ -4,22 +4,14 @@ import axios from 'axios';
 import config from '../config';
 const API_URL = config.API_URL;
 
-
 export default class Register extends React.Component{
 
-	constructor(props){
-		super(props);
-		this.state = {
-			username: '',
-			password: '',
-			error: null
-		}
-	};
-
-	componentDidMount(){
-		if(this.props.loggedIn){
-			this.props.history.push('/');
-		}
+	signal = axios.CancelToken.source();
+	state = {
+		username: '',
+		password: '',
+		error: null,
+		loading: false
 	};
 
 	submit = (e) => {
@@ -28,13 +20,20 @@ export default class Register extends React.Component{
 			.post(`${API_URL}/signup`, {
 				username: this.state.username, 
 				password: this.state.password
+			},
+			{
+				cancelToken: this.signal.cancelToken
 			})
     	.then(res => {
     		this.props.history.push('/login');
     	})
     	.catch(error => {
 	    	this.setState({ error: error.response.data['msg'] });
-	    })
+	    });
+	};
+
+	componentWillUnmount(){
+		this.signal.cancel('api is getting cancelled');
 	};
 
 	render(){
@@ -67,7 +66,6 @@ export default class Register extends React.Component{
 				{this.state.error &&
 					<p>{this.state.error}</p>
 				}
-
 			</div>
 		);
 	};

@@ -14,11 +14,6 @@ class Create extends React.Component{
 			error: null
 		}
 	}
-	componentDidMount(){
-		if(!this.props.loggedIn){
-			this.props.history.push('/login');
-		}
-	};
 
 	submit = (e) => {
 		e.preventDefault();
@@ -27,14 +22,22 @@ class Create extends React.Component{
 			.post(`${API_URL}/add`, {
 				title: this.state.title,
 				link: this.state.link
+			},
+			{
+				cancelToken: this.signal.token
 			})
     	.then(res => {
-    		this.props.history.push('/');
+    		console.log('group succesfully shared');
     	})
     	.catch(error => {
 	      this.setState({error: error.response.data['msg']})
 	    })
 	};
+
+	signal = axios.CancelToken.source();
+	componentWillUnmount(){
+		this.signal.cancel('api is getting cancelled');
+	}
 
 	render(){
 		return ( 

@@ -6,19 +6,16 @@ const API_URL = config.API_URL;
 
 export default class Login extends React.Component{
 
-	constructor(props){
-		super(props);
-		this.state = {
-			username: '',
-			password: '',
-			error: null
-		}
+	signal = axios.CancelToken.source();
+	state = {
+		username: '',
+		password: '',
+		error: null,
+		loading: false
 	};
 
-	componentDidMount(){
-		if(this.props.loggedIn){
-			this.props.history.push('/');
-		}
+	componentWillUnmount(){ 
+		this.signal.cancel('api is getting cancelled');
 	};
 
 	submit = (e) => {
@@ -28,13 +25,21 @@ export default class Login extends React.Component{
 			.post(`${API_URL}/login`, {
 				username: this.state.username,
 				password: this.state.password
+			},
+			{
+				cancelToken: this.signal.cancelToken
 			})
     	.then(res => {
     		this.props.onLogin();
+    		this.props.history.push('/');
     	})
     	.catch(error => {
-	      this.setState({ error: error.response.data['msg'] });
-	    })
+    		if(error.response){
+		      this.setState({ error: error.response.data['msg'] });
+    		}else{
+    			this.setState({ error: 'unknown error , line 47 in Login.js' });
+    		}
+	    });
 	};
 
 	render(){
@@ -68,7 +73,7 @@ export default class Login extends React.Component{
 				{this.state.error &&
 					<p>{this.state.error}</p>
 				}
-				
+
 			</div>
 		);
 	};
